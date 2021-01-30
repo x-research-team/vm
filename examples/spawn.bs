@@ -1,0 +1,22 @@
+# Test "sync"'s Wait Object(code from go's source :src/sync/example_test.go)
+const wait = () => {
+	let wg = newWaitGroup()
+	let urls = ["http://www.baidu.org/","http://www.csdn.net/","http://www.sina.com.cn/"]
+	wg.add(urls.len())
+	for url in urls {
+        // Increment the WaitGroup counter.
+	    
+		// Launch a goroutine to fetch the URL.
+		thread (g, url) => {
+			println('In thread, url={url}')
+			// Decrement the counter when the goroutine completes.
+			defer g.done()
+			// Fetch the URL.
+			kernel.NewPackage("route", "command", url).Send()
+		}(wg, url)
+	}
+	// Wait for all HTTP fetches to complete.
+	wg.wait()
+}
+
+wait()

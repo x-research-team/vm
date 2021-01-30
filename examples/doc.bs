@@ -1,0 +1,215 @@
+/*
+ *  A Persion class which has three private variable:
+ ** firstName
+ ** lastName
+ ** nickName
+
+ * and two methods :'init' and 'Msg'.
+*/
+class Person {
+	//this is the firstname
+	let firstName;
+	//this is the last name
+	let lastName;
+	let nickName; // this is the nick name
+
+	//This is the constructor of the Person class.
+	fn init(firstname, lastname="huang", nickname="mike") {
+		this.firstName = firstname
+		this.lastName = lastname
+		this.nickName = nickname
+	}
+
+	/* Method 'Msg' demonstrate function default values and variable arguements
+	 * @param {string} extra1  this is extra1
+	 * @param {string} extra2  this is extra2, it has default value "extra2"
+	 * @param {array}  args this is args
+	*/
+	fn Msg(extra1, extra2="extra2", args...) {
+		printf("firstName=%s, lastName=%s, nickName=%s\n", firstName, lastName, nickName)
+		printf("extra1=%s, extra2=%s\n", extra1, extra2)
+		for i in args {
+			printf("i=%v\n", i)
+		}
+	}
+}
+
+/* LogOption enum is defined for Log options.
+*/
+enum LogOption {
+	Ldate         = 1 << 0,
+	Ltime         = 1 << 1,
+	Lmicroseconds = 1 << 2,
+	Llongfile     = 1 << 3,
+	Lshortfile    = 1 << 4,
+	LUTC          = 1 << 5,
+	LstdFlags     = 1 << 4 | 1 << 5
+};
+
+//Color enum is the color of the image.
+//This is just for demo purpose.
+enum Color {
+	RED = 0,
+	BLUE = 1,
+	YELLOW = 2,
+	BLACK = 3,
+	WHITE = 4,
+	GRAY = 5
+};
+
+//This is a demo parser
+let Parse = fn(lexer) {
+	fmt.Printf("This is the parser part!\n") //just a demo
+	fmt.Printf("The parser take a lexer as input, and generate an AST\n")
+}
+
+//This is the constant 'SIZE'.
+let SIZE = 10
+
+//This is the constant 'CENTER'.
+let CENTER = 15.0
+
+//This is the constant 'PI'
+const PI = 3.14159
+
+//This is the constant 'GRAVITATION'
+const GRAVITATION = 9.8
+
+/* Add returns the addition of its two parameters
+ * @param {int} x  this is the first parameter
+ * @param {int} y  this is the second parameter
+ * @return {int} retuns the addition of it's two parameters if both parameters are ints.
+ *
+ * This is a example of calling 'Add' with two ints:
+ * @example
+ * sum = Add(1, 2) //result is 3
+ * sum = Add(4, 5) //result is 9
+ * sum = Add(-1, 2) //result is 1
+ * @
+ *
+ * @return {string} retuns the string concatenation of it's two parameters if both parameters are strings
+ *
+ * This is a example of calling 'Add' with two strings:
+ * @example
+ * sum = Add("Hello ", "world") //result is "Hello world"
+ * sum = Add("Welcome ", "world") //result is "Welcome world"
+ * sum = Add("Hi ", "world") //result is "Hi world"
+ * @
+*/
+fn Add(x,y) {
+	return x + y
+}
+
+/* Sub returns the subtraction of its two parameters
+ * @param {int} x  this is the first parameter
+ * @param {int} y  this is the second parameter
+ * @return {int} retuns the subtraction of it's two parameters
+*/
+fn Sub(x,y) {
+	return x - y
+}
+
+//Mul returns the multiply of its two parameters
+fn Mul(x,y) {
+	return x * y
+}
+
+//Div returns the division of its two parameters
+fn Div(x,y) {
+	return x / y
+}
+
+# MinMaxValidator annotation class
+# It is used for checking min and max length
+//The max length has a default value of 10
+class @MinMaxValidator {
+  property MinLength
+  property MaxLength default 10
+}
+
+//NoSpaceValidator annotation class(it's a marker annotation).
+//It is used for checking spaces.
+class @NoSpaceValidator {}
+
+/* DepartmentValidator annotation class.
+ * It is used for checking a list of department.
+*/
+class @DepartmentValidator {
+  property Department
+}
+
+# Request class represent a user made request.
+class Request {
+  /* FirstName property, it's value's length should be between 1(minlenght) and 10(maxlength). */
+  @MinMaxValidator(MinLength=1)
+  property FirstName;
+
+  //LastName property, it's value should contain no space.
+  @NoSpaceValidator
+  property LastName;
+
+  //Dept property, it's value should be in a list ["Department of Education", "Department of Labors"].
+  @DepartmentValidator(Department=["Department of Education", "Department of Labors"])
+  property Dept;
+}
+
+//RequestHandler class is responsible for processing the annotation.
+class RequestHandler {
+  //handle is the real logic of processing the annotations.
+  static fn handle(o) {
+    props = o.getProperties()
+    for p in props {
+      annos = p.getAnnotations()
+      for anno in annos {
+        if anno.instanceOf(MinMaxValidator) {
+          //p.value is the property real value.
+          if len(p.value) > anno.MaxLength || len(p.value) < anno.MinLength {
+            printf("Property '%s' is not valid!\n", p.name)
+          }
+        } elseif anno.instanceOf(NoSpaceValidator) {
+          for c in p.value {
+            if c == " " || c == "\t" {
+              printf("Property '%s' is not valid!\n", p.name)
+              break
+            }
+          }
+        } elseif anno.instanceOf(DepartmentValidator) {
+          found = false
+          for d in anno.Department {
+            if p.value == d {
+              found = true
+            }
+          }
+          if !found {
+            printf("Property '%s' is not valid!\n", p.name)
+          }
+        }
+      }
+    }
+  }
+}
+
+//RequestMain class. It is the user/client code.
+/* @note
+ * This is note one.</br>
+ * This is note two.</br>
+ * This is note three.</br>
+ * @
+ *
+ * @warn
+ * This is warning one.</br>
+ * This is warning two.</br>
+ * This is warning three.</br>
+ * @
+*/
+class RequestMain {
+  static fn main() {
+    request = new Request()
+    request.FirstName = "Haifeng123456789"
+    request.LastName = "Huang     "
+    request.Dept = "Department of Labors"
+    RequestHandler.handle(request)
+  }
+}
+
+RequestMain.main()
