@@ -6,11 +6,12 @@ package eval
 */
 import (
 	_ "fmt"
-	"magpie/internal/ast"
 	"math"
 	"reflect"
 	"regexp"
 	"sort"
+
+	"github.com/x-research-team/vm/internal/ast"
 )
 
 type comparer func(Object, Object) int
@@ -1987,7 +1988,7 @@ func (lq *LinqObj) Distinct(line string, args ...Object) Object {
 			return func() (item Object, ok *Boolean) {
 				for item, ok = next(); ok.Bool; item, ok = next() {
 
-					//Why we need this 'for' logic? because in magpie, every object is
+					//Why we need this 'for' logic? because in vm, every object is
 					//a pointer, so if we do not have this, the below `if _, has := set[item]; !has {`
 					//will always evaluated to 'true', so we need to use 'DeepEqual'
 					for k, _ := range set {

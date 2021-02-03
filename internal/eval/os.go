@@ -3,10 +3,11 @@ package eval
 import (
 	_ "fmt"
 	"io"
-	"magpie/internal/ast"
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/x-research-team/vm/internal/ast"
 )
 
 const (
@@ -355,7 +356,7 @@ func (o *Os) RemoveAll(line string, args ...Object) Object {
 }
 
 //The result is a hash object:
-//{name: bb.mp, size: 240, mode: 438, isDir: false}
+//{name: bb.vm, size: 240, mode: 438, isDir: false}
 func (o *Os) Stat(line string, args ...Object) Object {
 	if len(args) != 1 {
 		return NewError(line, ARGUMENTERROR, "1", len(args))

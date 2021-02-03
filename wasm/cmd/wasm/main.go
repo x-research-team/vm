@@ -6,9 +6,9 @@ import (
 	"strings"
 	"syscall/js"
 
-	"magpie/internal/eval"
-	"magpie/internal/lexer"
-	"magpie/internal/parser"
+	"github.com/x-research-team/vm/internal/eval"
+	"github.com/x-research-team/vm/internal/lexer"
+	"github.com/x-research-team/vm/internal/parser"
 )
 
 func runCode(this js.Value, i []js.Value) interface{} {
@@ -42,6 +42,6 @@ func runCode(this js.Value, i []js.Value) interface{} {
 
 func main() {
 	c := make(chan struct{}, 0)
-	js.Global().Set("magpie_run_code", js.FuncOf(runCode))
+	js.Global().Set("vm_run_code", js.FuncOf(runCode))
 	<-c
 }

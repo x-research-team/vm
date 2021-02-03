@@ -3,9 +3,10 @@ package eval
 import (
 	"fmt"
 	"io"
-	"magpie/internal/ast"
 	_ "os"
 	"sync"
+
+	"github.com/x-research-team/vm/internal/ast"
 )
 
 var BuiltinClasses = map[string]*Class{

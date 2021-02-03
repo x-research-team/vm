@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
-export GOPATH=$(pwd)
 
 # format each go file
 #echo "Formatting go file..."
-#for file in `find ./src/magpie -name "*.go"`; do
+#for file in `find ./src/vm -name "*.go"`; do
 #	echo "    `basename $file`"
 #	go fmt $file > /dev/null
 #done
 
-interpreter_name=magpie
+interpreter_name=vm
 
 # cross-compiling
 platforms=("windows/amd64" "linux/amd64" "darwin/amd64")
@@ -33,11 +32,11 @@ done
 echo "Building mdoc...         (mdoc)"
 go build -ldflags "-s -w" -o mdoc mdoc.go
 
-# run: ./fmt demo.mp
+# run: ./fmt demo.vm
 echo "Building Formatter...    (fmt)"
 go build -ldflags "-s -w" -o fmt fmt.go
 
-# run:    ./highlight demo.mp               (generate: demo.mp.html)
-#     or  ./fmt demo.mp | ./highlight   (generate: output.html)
+# run:    ./highlight demo.vm               (generate: demo.vm.html)
+#     or  ./fmt demo.vm | ./highlight   (generate: output.html)
 echo "Building Highlighter...  (highlight)"
 go build -ldflags "-s -w" -o highlight highlight.go

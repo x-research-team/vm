@@ -1,6 +1,6 @@
 # Syntax Support for Sublime Text 3
 
-This file provides Syntax highlighting support for the magpie Language in `Sublime Text 3`
+This file provides Syntax highlighting support for the vm Language in `Sublime Text 3`
 
 ## Sublime Text 3 screenshot
 
@@ -9,7 +9,7 @@ This file provides Syntax highlighting support for the magpie Language in `Subli
 
 ## Installation for Sublime Text 3
 
-Just copy `magpie` directory to `%APPDATA%\Roaming\Sublime Text 3\Packages\User`.
+Just copy `vm` directory to `%APPDATA%\Roaming\Sublime Text 3\Packages\User`.
 e.g. in my computer, it's `C:\Users\huanghai\AppData\Roaming\Sublime Text 3\Packages\User`
 
 ## Known Issues

@@ -2,8 +2,9 @@ package eval
 
 import (
 	"encoding/json"
-	"magpie/internal/ast"
 	"regexp"
+
+	"github.com/x-research-team/vm/internal/ast"
 )
 
 type RegEx struct {

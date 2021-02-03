@@ -3,7 +3,7 @@ package lexer
 import (
 	"testing"
 
-	"magpie/internal/token"
+	"github.com/x-research-team/vm/internal/token"
 )
 
 func TestNextToken(t *testing.T) {
@@ -153,7 +153,7 @@ func TestNextToken(t *testing.T) {
 		{token.INT, "5"},
 		{token.MOD, "%"},
 		{token.INT, "4"},
-		{token.INCLUDE, "include"},
+		{token.INCLUDE, import},
 		{token.IDENT, "tests"},
 		{token.IDENT, "x"},
 		{token.AND, "and"},

@@ -4,20 +4,21 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"magpie/internal/ast"
-	"magpie/internal/eval"
-	"magpie/internal/lexer"
-	"magpie/internal/parser"
 	"os"
 	"path/filepath"
 	"strings"
 
-	"magpie/pkg/liner"
+	"github.com/x-research-team/vm/internal/ast"
+	"github.com/x-research-team/vm/internal/eval"
+	"github.com/x-research-team/vm/internal/lexer"
+	"github.com/x-research-team/vm/internal/parser"
+
+	"github.com/x-research-team/vm/pkg/liner"
 )
 
-var magpieKeywords = []string{
+var vmKeywords = []string{
 	"fn", "let", "true", "false", "if", "else",
-	"elif", "return", "include", "and", "or", "struct", "do", "while",
+	"elif", "return", "import", "and", "or", "struct", "do", "while",
 	"break", "continue", "for", "in", "where", "grep", "map", "case",
 	"is", "try", "catch", "finally", "throw", "qw", "unless", "spawn",
 	"enum", "defer", "nil", "class", "new", "this", "parent", "property",
@@ -27,7 +28,7 @@ var magpieKeywords = []string{
 }
 
 //Note: we should put the longest operators first.
-var magpieOperators = []string{
+var vmOperators = []string{
 	"+=", "-=", "*=", "/=", "%=", "^=",
 	"++", "--",
 	"&&", "||",
@@ -50,11 +51,11 @@ var colors = map[liner.Category]liner.Color{
 	liner.IdentType:    liner.COLOR_WHITE,
 }
 
-const PROMPT = "magpie>> "
+const PROMPT = "vm>> "
 const CONT_PROMPT = "... " // continue prompt
 
 func Start(out io.Writer, color bool) {
-	history := filepath.Join(os.TempDir(), ".magpie_history")
+	history := filepath.Join(os.TempDir(), ".vm_history")
 	l := liner.NewLiner()
 	defer l.Close()
 
@@ -63,8 +64,8 @@ func Start(out io.Writer, color bool) {
 
 	if color {
 		l.SetSyntaxHighlight(color) //use syntax highlight or not
-		l.RegisterKeywords(magpieKeywords)
-		l.RegisterOperators(magpieOperators)
+		l.RegisterKeywords(vmKeywords)
+		l.RegisterOperators(vmOperators)
 		l.RegisterColors(colors)
 	}
 

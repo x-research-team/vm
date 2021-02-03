@@ -1,12 +1,10 @@
-# Magpie Programming Language
-
-Chinese version: [中文](README_cn.md)
+# VM Programming Language
 
 Table of Contents
 =================
 <details><summary>TOC</summary>
 
-* [Magpie Programming Language](#magpie-programming-language)
+* [VM Programming Language](#vm-programming-language)
   * [Summary](#summary)
   * [Overview](#overview)
   * [Installation](#installation)
@@ -75,11 +73,11 @@ Table of Contents
 
 ## Summary
 
-Magpie is a toy language interpreter, written in Go. It has C-style syntax, and is largely inspired by Ruby, Python, Perl and c#
+VM is a toy language interpreter, written in Go. It has C-style syntax, and is largely inspired by Ruby, Python, Perl and c#
 It support the normal control flow, functional programming and object oriented programming.
 It also has a REPL with realtime syntax highlighter.
 
-This is a sample program using magpie language:
+This is a sample program using vm language:
 
 ```swift
 
@@ -215,8 +213,8 @@ Just download the repository and run `./run.sh`
 To access the REPL, simply run the following:
 
 ```sh
-~ » magpie
-Magpie programming language REPL
+~ » vm
+VM programming language REPL
 
 >>
 ```
@@ -224,14 +222,14 @@ Magpie programming language REPL
 or, to run a program:
 
 ```sh
-magpie path/to/file
+vm path/to/file
 ```
 
 ## Language Tour
 
 ### Comments
 
-Magpie support two kinds of single line comment and also block comment.
+VM support two kinds of single line comment and also block comment.
 
 ```swift
 // this is a single line comment
@@ -244,7 +242,7 @@ Magpie support two kinds of single line comment and also block comment.
 
 ### Data Types
 
-Magpie supports 9 basic data types: `String`, `Int`, `UInt`, `Float`, `Bool`, `Array`, `Hash`, `Tuple` and `Nil`
+VM supports 9 basic data types: `String`, `Int`, `UInt`, `Float`, `Bool`, `Array`, `Hash`, `Tuple` and `Nil`
 
 ```swift
 s1 = "hello, 黄"          # strings are UTF-8 encoded
@@ -261,7 +259,7 @@ n = nil
 
 ### Constants(Literal)
 
-In magpie, there are mainly eleven types of constants(Literals).
+In vm, there are mainly eleven types of constants(Literals).
 
 * Integer
 * UInteger
@@ -330,7 +328,7 @@ println(f2(1,2))
 
 ### Variables
 
-Variables in Magpie could start with the keyword `let`, or nothing with the
+Variables in VM could start with the keyword `let`, or nothing with the
 form `variable=value`.
 
 ```swift
@@ -358,7 +356,7 @@ let (j, k, l) = {"j": 50, "l": "good"}
 
 ```
 
-Note：Starting from Magpie 5.0，when the decalared variable already exists, it's value will be overwritten:
+Note：Starting from VM 5.0，when the decalared variable already exists, it's value will be overwritten:
 
 ```swift
 let x, y = 10, 20;
@@ -462,7 +460,7 @@ fmt.printf("newArr=%v\n", newArr)
 
 ### `enum` keyword
 
-In Magpie, you can use enum to define constants.
+In VM, you can use enum to define constants.
 
 ```swift
 LogOption = enum {
@@ -493,7 +491,7 @@ println(LogOption.getName(LogOption.Lshortfile))
 ```
 
 ### Meta-Operators
-Magpie has some meta-operators borrowed from perl6.
+VM has some meta-operators borrowed from perl6.
 There are strict rules for meta-operators:
 
 * Meta-operators can only operator on arrays.
@@ -514,7 +512,7 @@ println(value1) //result: 40
 println(value2) //result: 2HELLO2
 ```
 
-At the moment, Magpie has six meta-operators：
+At the moment, VM has six meta-operators：
 * <p>~+</p>
 * <p>~-</p>
 * <p>~*</p>
@@ -723,7 +721,7 @@ case i in {
 
 ```
 ### using statement
-In magpie, if you have some resources you want to release/free/close, e.g. close opened file, close network connection etc，
+In vm, if you have some resources you want to release/free/close, e.g. close opened file, close network connection etc，
 you can use the `using` statement just like `c#`.
 
 ```swift
@@ -747,7 +745,7 @@ using (infile = newFile("./file.demo", "r")) {
 ```
 
 ### User Defined Operator
-In magpie, you are free to define some operators, but you cannot
+In vm, you are free to define some operators, but you cannot
 overwrite predefined operators.
 
 > Note: Not all operators could be user defined.
@@ -844,7 +842,7 @@ Below is a list of predefined operators and user defined operators:
 
 ### Integer
 
-In magpie, integer is treated as an object, so you could call it's methods.
+In vm, integer is treated as an object, so you could call it's methods.
 Please see below examples:
 
 ```swift
@@ -880,7 +878,7 @@ if 9.isOdd() {
 
 ### Float
 
-In magpie, float is also treated as an object, so you could call it's methods.
+In vm, float is also treated as an object, so you could call it's methods.
 Please see below examples:
 
 ```swift
@@ -896,7 +894,7 @@ println(f2)
 
 ### Decimal
 
-In magpie, decimal is Arbitrary-precision fixed-point decimal numbers.
+In vm, decimal is Arbitrary-precision fixed-point decimal numbers.
 And the code mainly based on [decimal](https://github.com/shopspring/decimal).
 
 Please see below examples:
@@ -922,7 +920,7 @@ fmt.println("123.45678901234567/3 = ", d3.div(d2))
 
 ### Array
 
-In magpie, you could use [] to initialize an empty array:
+In vm, you could use [] to initialize an empty array:
 
 ```swift
 emptyArr = []
@@ -1021,7 +1019,7 @@ println(arr) // result: [3,4,3,4,3,4]
 
 ### String
 
-In magpie, there are three types of `string`:
+In vm, there are three types of `string`:
 
 * Raw string
 * Double quoted string(Could not contains newline)
@@ -1050,7 +1048,7 @@ println('str={str}') //output: "Hello World"
 
 ```
 
-In magpie, strings are utf8-encoded, you could use utf-8 encoded name as a variable name.
+In vm, strings are utf8-encoded, you could use utf-8 encoded name as a variable name.
 
 ```swift
 三 = 3
@@ -1109,7 +1107,7 @@ println(a) // result: 121314.6789
 ```
 
 ### Hash
-In magpie, the builtin hash will keep the order of keys when they are added to the hash, just like python's orderedDict.
+In vm, the builtin hash will keep the order of keys when they are added to the hash, just like python's orderedDict.
 
 You could use {} to initialize an empty hash:
 
@@ -1143,7 +1141,7 @@ hashObj -= 5
 println(hash)
 ```
 
-In magpie, Hash is also an object, so you could use them to operate on hash object:
+In vm, Hash is also an object, so you could use them to operate on hash object:
 
 ```swift
 
@@ -1172,7 +1170,7 @@ println(hash[key1]) # result：12
 
 ### Tuple
 
-In magpie, `tuple` is just like array, but it could not be changed once it has been created.
+In vm, `tuple` is just like array, but it could not be changed once it has been created.
 
 Tuples are constructed using parenthesized list notation:
 
@@ -1301,7 +1299,7 @@ println(revTuple) //result: (9, 8, 7, 6, 4, 2, 5, 3, 1)
 ```
 
 ### Extend basic type 
-Magpie also provides support for extending basic types.
+VM also provides support for extending basic types.
 
 The basic types that can be extended are as follows：
 * integer
@@ -1345,7 +1343,7 @@ printf("[25,20,38].find(38) = %d\n", idx) //found, returns 2
 ```
 
 ### Optional type
-Magpie has support for Optional type like java8.
+VM has support for Optional type like java8.
 
 ```swift
 fn safeDivision?(a, b) {
@@ -1400,7 +1398,7 @@ elif (RUNTIME_OS == "windows") {
 
 ### class
 
-Magpie has limited support for the oop concept, below is a list of features:
+VM has limited support for the oop concept, below is a list of features:
 
 * inheritance and polymorphism
 * operator overloading
@@ -1411,8 +1409,8 @@ Magpie has limited support for the oop concept, below is a list of features:
 * class annotations(limited support)
 * constructor method and normal methods support default value and variadic parameters
 
-The magpie parser could parse `public`, `private`, `protected`, but it has no effect in the evaluation phase.
-That means magpie do not support access modifiers at present.
+The vm parser could parse `public`, `private`, `protected`, but it has no effect in the evaluation phase.
+That means vm do not support access modifiers at present.
 
 You use `class` keyword to declare a class and use `new class(xxx)` to create an instance of a `class`.
 
@@ -1425,7 +1423,7 @@ class Animal {
 }
 ```
 
-In magpie, all class is inherited from the root class `object`. 
+In vm, all class is inherited from the root class `object`. 
 `object` class include some common method like `toString()`, `instanceOf()`, `is_a()`, `classOf()`, `hashCode`.
 
 Above code is same as:
@@ -1645,7 +1643,7 @@ dateObj.getDateInfo()
 
 #### indexer
 
-Magpie has support for class `indexer`(like c#). 
+VM has support for class `indexer`(like c#). 
 An indexer is a member that enables an object to be indexed in the same way as an array.
 
 You declare an Indexer using `property this[parameter]`.
@@ -1753,7 +1751,7 @@ Note：Non-static variable/method/property could access static variable/method/p
 
 #### Class Category
 
-Magpie also support class Category like objective-c（C# is called 'extension methods'）.
+VM also support class Category like objective-c（C# is called 'extension methods'）.
 
 ```swift
 class Animal {
@@ -1779,7 +1777,7 @@ animal.Run()
 
 #### Annotations
 
-Magpie also has very simple annotation support like java：
+VM also has very simple annotation support like java：
 
 * Only method and property of class can have annotations(not class itself, or other simple functions)
 * In the body of `Annotation` class, only support property, do not support methods.
@@ -1787,7 +1785,7 @@ Magpie also has very simple annotation support like java：
 
 
 You could use `class @annotationName {}` to declare an annotation class.
-Magpie also include some builtin annotations:
+VM also include some builtin annotations:
 
 * @Override annotation(just like java's @Override).
 * @NotNull
@@ -1960,7 +1958,7 @@ if (ret == false) {
 
 ```
 
-Maybe you are curious about why `nil` or `false` have message() function? Because in magpie, `nil` and `false`
+Maybe you are curious about why `nil` or `false` have message() function? Because in vm, `nil` and `false`
 both are objects, so they have method to operate on it.
 
 ### About `defer` keyword
@@ -2002,7 +2000,7 @@ defer file.close()
 
 ### Concatenation of different types
 
-In magpie, you could concatenate of different types. See below for examples:
+In vm, you could concatenate of different types. See below for examples:
 
 ```swift
 // Number plus assignment
@@ -2047,7 +2045,7 @@ println(hash)
 
 ### Comprehensions
 
-Magpie support list(array,string, range, tuple) comprehensions.
+VM support list(array,string, range, tuple) comprehensions.
 list comprehension will return an array.
 please see following examples:
 
@@ -2073,7 +2071,7 @@ z = [v * 10 for k,v in {"key1": 10, "key2": 20, "key3": 30}]
 println(z) //result: [100, 200, 300]
 ```
 
-Magpie also support hash comprehension.
+VM also support hash comprehension.
 hash comprehension will return a hash.
 please see following examples:
 
@@ -2135,7 +2133,7 @@ println(values)
 
 ### Function
 
-Function in magpie is a first-class object. This means the language supports passing functions as arguments to
+Function in vm is a first-class object. This means the language supports passing functions as arguments to
 other functions, returning them as the values from other functions, and assigning them to variables or storing
 them in data structures.
 
@@ -2219,7 +2217,7 @@ println("hhf".upper)  //result: "HHF"
 println("hhf".upper())
 ```
 
-Before ver5.0, Magpie do not support multiple return values, But there are many ways to do it.
+Before ver5.0, VM do not support multiple return values, But there are many ways to do it.
 
 Below suggest a way of doing it:
 
@@ -2239,7 +2237,7 @@ if ret[1] != "" {
 }
 ```
 
-Starting from ver5.0, Magpie support multiple return values using 'let'.
+Starting from ver5.0, VM support multiple return values using 'let'.
 The returned values are wrapped as a tuple.
 
 ```swift
@@ -2321,15 +2319,15 @@ for i in XRange(10) {
 ```
 
 ## Use `go` language modules
-Magpie has experimental support for working with `go` modules.
+VM has experimental support for working with `go` modules.
 
 If you need to use go`s language package function, you first need to use `RegisterFunctions` or `RegisterVars` to
-register `go` language functions or types into magpie language.
+register `go` language functions or types into vm language.
 
 Below is an example of `main.go`(extracted):
 
 ```swift
-// Because in magpie we already have built in module `fmt`, here we use `gfmt` for package name.
+// Because in vm we already have built in module `fmt`, here we use `gfmt` for package name.
 eval.RegisterFunctions("gfmt", []interface{}{
     fmt.Errorf,
     fmt.Println, fmt.Print, fmt.Printf,
@@ -2346,7 +2344,7 @@ eval.RegisterFunctions("io/ioutil", []interface{}{
 
 eval.Eval(program, scope)
 ```
-Now, in your magpie file, you could use it like below:
+Now, in your vm file, you could use it like below:
 
 ```swift
 gfmt.Printf("Hello %s!\n", "go function");
@@ -2364,12 +2362,12 @@ for file in files {
 }
 ```
 
-For more detailed examples, please see `goObj.mp`.
+For more detailed examples, please see `goObj.vm`.
 
 ## Standard module introduction
 
-In magpie, there are some standard modules provided for you. e.g. json, sql, sort, fmt, os, logger, time, flag, net, http, etc...
-This is a brief introduction of some of the magpie standard modules, don't expect it to be thorough.
+In vm, there are some standard modules provided for you. e.g. json, sql, sort, fmt, os, logger, time, flag, net, http, etc...
+This is a brief introduction of some of the vm standard modules, don't expect it to be thorough.
 If you are curious, please see the source code.
 
 #### fmt module
@@ -2512,7 +2510,7 @@ if (ret == false) {
 
 #### linq module
 
-In magpie, the `linq` module support seven types of object:
+In vm, the `linq` module support seven types of object:
 
 * File object (create using `newFile` builtin function)
 * Csv reader object (created using `newCsvReader` builtin function)
@@ -2605,7 +2603,7 @@ println('["st", "ng"] selectManyByIndexed() = {result}')
 
 #### Linq for file
 
-Now, magpie has a powerful `linq for file` support. it can be used to operate
+Now, vm has a powerful `linq for file` support. it can be used to operate
 files a little bit like awk. See below for example:
 
 ```swift
@@ -2754,9 +2752,9 @@ For testing `sql` module, you need to do following:
     _ "github.com/mattn/go-sqlite3"
 ```
 
-3. Recompile magpie source.
+3. Recompile vm source.
 
-Below is a complete source of the `examples/db.mp`:
+Below is a complete source of the `examples/db.vm`:
 
 ```swift
 let dbOp = fn() {
@@ -2833,7 +2831,7 @@ os.exit()
 
 ## About regular expression
 
-In magpie, regard to regular expression, you could use:
+In vm, regard to regular expression, you could use:
 
 * Regular expression literal
 * 'regexp' module
@@ -2866,13 +2864,13 @@ Note: For detailed explanation of 'Regular Expression' pattern matching, you cou
 
 Included has some useful utilities like `formatter` and `highlighter`.
 
-The formatter utility can format the magpie language.
-The highlighter utility can highlight the magpie language to console or html.
+The formatter utility can format the vm language.
+The highlighter utility can highlight the vm language to console or html.
 
 You could also combine the two utilities:
 
 ```sh
-./fmt xx.mp | ./highlight  //output to console(console highlight not support windows)
+./fmt xx.vm | ./highlight  //output to console(console highlight not support windows)
 ```
 
 ## Document generator
@@ -2891,13 +2889,13 @@ The tool only support below statement for document generator:
 
 ```sh
 //generate markdown file, the generated file is named 'doc.md'
-./mdoc examples/doc.mp
+./mdoc examples/doc.vm
 
 //generate html file, the generated file is named 'doc.html'
-./mdoc -html examples/doc.mp
+./mdoc -html examples/doc.vm
 
 //generate html file, also generate source code of classes and functions. the generated file is named 'doc.html'
-./mdoc -html -showsource examples/doc.mp
+./mdoc -html -showsource examples/doc.vm
 
 //Use the some builtin css types for styling the generated html
 //    0 - GitHub
@@ -2909,14 +2907,14 @@ The tool only support below statement for document generator:
 //    6 - Atom Dark
 //    7 - Forgotten Light
 
-./mdoc -html -showsource -css 1 examples/doc.mp
+./mdoc -html -showsource -css 1 examples/doc.vm
 
 //Using external css file for styling the generated html file.
 //The '-cssfile' option has higher priority than the '-css' option.
 //If the supplied css file does not exists, then the '-css' option will be used.
-./mdoc -html -showsource -css 1 -cssfile ./examples/github-markdown.css examples/doc.mp
+./mdoc -html -showsource -css 1 -cssfile ./examples/github-markdown.css examples/doc.vm
 
-//processing all the '.mp' files in examples directory, generate html.
+//processing all the '.vm' files in examples directory, generate html.
 ./mdoc -html examples
 ```
 The generating of HTML document is base on github REST API，so you must have network connection to make it work.

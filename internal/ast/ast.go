@@ -2,9 +2,10 @@ package ast
 
 import (
 	"bytes"
-	"magpie/internal/token"
 	"strings"
 	"unicode/utf8"
+
+	"github.com/x-research-team/vm/internal/token"
 )
 
 //Source interface is used in documentation for printing source code.

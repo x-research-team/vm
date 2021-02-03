@@ -2,9 +2,10 @@ package eval
 
 import (
 	_ "fmt"
-	"magpie/internal/ast"
 	"os"
 	"path/filepath"
+
+	"github.com/x-research-team/vm/internal/ast"
 )
 
 func NewFilePathObj() *FilePathObj {

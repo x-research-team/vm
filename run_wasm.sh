@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-export GOPATH=$(pwd)
 
 olddir=$(pwd)
 # build-wasm
 cd wasm/cmd/wasm
 echo "Building wasm..."
-GOOS=js GOARCH=wasm go build -o ../../assets/magpie.wasm
+GOOS=js GOARCH=wasm go build -o ../../assets/vm.wasm
 
 # run server
 cd ../server

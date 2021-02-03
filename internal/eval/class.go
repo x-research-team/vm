@@ -2,7 +2,8 @@ package eval
 
 import (
 	_ "fmt"
-	"magpie/internal/ast"
+
+	"github.com/x-research-team/vm/internal/ast"
 )
 
 const (
@@ -189,7 +190,7 @@ func (oi *ObjectInstance) GetModifierLevel(name string, kind ClassComponentKind)
 	return oi.Class.GetModifierLevel(name, kind)
 }
 
-//The base class of all classes in magpie
+//The base class of all classes in vm
 var BASE_CLASS = &Class{
 	Name:    "object",
 	Parent:  nil,

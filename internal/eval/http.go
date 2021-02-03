@@ -5,10 +5,11 @@ import (
 	_ "fmt"
 	"io"
 	"io/ioutil"
-	"magpie/internal/ast"
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/x-research-team/vm/internal/ast"
 )
 
 const (

@@ -181,7 +181,7 @@ var keywords = map[string]TokenType{
 	"elif":      ELIF,
 	"else":      ELSE,
 	"return":    RETURN,
-	"include":   INCLUDE,
+	"import":    INCLUDE,
 	"and":       AND,
 	"or":        OR,
 	"struct":    STRUCT,

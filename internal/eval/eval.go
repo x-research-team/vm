@@ -3,10 +3,6 @@ package eval
 import (
 	"bytes"
 	"fmt"
-	"magpie/internal/ast"
-	_ "magpie/internal/lexer"
-	"magpie/internal/message"
-	"magpie/internal/token"
 	"math"
 	"os"
 	"os/exec"
@@ -19,6 +15,11 @@ import (
 	"time"
 	"unicode"
 	"unicode/utf8"
+
+	"github.com/x-research-team/vm/internal/ast"
+	_ "github.com/x-research-team/vm/internal/lexer"
+	"github.com/x-research-team/vm/internal/message"
+	"github.com/x-research-team/vm/internal/token"
 )
 
 var (
@@ -1858,7 +1859,7 @@ func evalInfixExpression(node *ast.InfixExpression, left, right Object, scope *S
 	}
 
 	// Check if left is 'Writable'
-	if _, ok := left.(Writable); ok { //There are two Writeables in magpie: FileObject, HttpResponseWriter.
+	if _, ok := left.(Writable); ok { //There are two Writeables in vm: FileObject, HttpResponseWriter.
 		if node.Operator == ">>" { // '>>' is refered as 'extraction operator'. e.g.
 			// Left is a file object
 			if left.Type() == FILE_OBJ { // FileObject is also readable
@@ -5141,7 +5142,7 @@ func evalClassStatement(c *ast.ClassStatement, scope *Scope) Object {
 
 //let name = class : parent { block }
 func evalClassLiteral(c *ast.ClassLiteral, scope *Scope) Object {
-	var parentClass = BASE_CLASS //base class is the root of all classes in magpie
+	var parentClass = BASE_CLASS //base class is the root of all classes in vm
 	if c.Parent != "" {
 
 		parent, ok := scope.Get(c.Parent)
@@ -5204,7 +5205,7 @@ func evalClassLiteral(c *ast.ClassLiteral, scope *Scope) Object {
 }
 
 func evalClassLiterlForAnno(c *ast.ClassLiteral, scope *Scope) Object {
-	var parentClass = BASE_CLASS //base class is the root of all classes in magpie
+	var parentClass = BASE_CLASS //base class is the root of all classes in vm
 	if c.Parent != "" {
 		parent, ok := scope.Get(c.Parent)
 		if !ok {

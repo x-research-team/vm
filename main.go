@@ -5,17 +5,18 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"magpie/internal/eval"
-	"magpie/internal/lexer"
-	"magpie/internal/message"
-	"magpie/internal/parser"
-	"magpie/internal/repl"
 	"math/rand"
 	"os"
 	"regexp"
 	"runtime"
 	"strings"
 	"time"
+
+	"github.com/x-research-team/vm/internal/eval"
+	"github.com/x-research-team/vm/internal/lexer"
+	"github.com/x-research-team/vm/internal/message"
+	"github.com/x-research-team/vm/internal/parser"
+	"github.com/x-research-team/vm/internal/repl"
 )
 
 func runProgram(debug bool, filename string) {
@@ -26,7 +27,7 @@ func runProgram(debug bool, filename string) {
 	}
 	f, err := ioutil.ReadFile(wd + "/" + filename)
 	if err != nil {
-		fmt.Println("magpie: ", err.Error())
+		fmt.Println("vm: ", err.Error())
 		os.Exit(1)
 	}
 
@@ -79,7 +80,7 @@ func runProgram(debug bool, filename string) {
 }
 
 // Register go package methods/types
-// Note here, we use 'gfmt', 'glog', 'gos' 'gtime', because in magpie
+// Note here, we use 'gfmt', 'glog', 'gos' 'gtime', because in vm
 // we already have built in module 'fmt', 'log' 'os', 'time'.
 // And Here we demonstrate the use of import go language's methods.
 func RegisterGoGlobals() {
@@ -227,14 +228,14 @@ func main() {
 	//We must reset `os.Args`, or the `flag` module will not functioning correctly
 	os.Args = os.Args[1:]
 	if len(args) == 0 {
-		fmt.Println("Magpie programming language REPL\n")
+		fmt.Println("VM programming language REPL\n")
 		repl.Start(os.Stdout, true)
 	} else {
 		if len(args) == 2 {
 			if args[0] == "-d" || args[0] == "--debug" { // debug
 				runProgram(true, args[1])
 			} else {
-				fmt.Println("Usage: magpie -d file.mp")
+				fmt.Println("Usage: vm -d file.vm")
 				os.Exit(1)
 			}
 		} else {

@@ -1,16 +1,17 @@
-/* Documentor generator for magpie. */
+/* Documentor generator for vm. */
 package main
 
 import (
 	"flag"
 	"fmt"
 	"io/ioutil"
-	doc "magpie/internal/docs"
-	"magpie/internal/lexer"
-	"magpie/internal/parser"
 	"os"
 	"path/filepath"
 	"strings"
+
+	doc "github.com/x-research-team/vm/internal/docs"
+	"github.com/x-research-team/vm/internal/lexer"
+	"github.com/x-research-team/vm/internal/parser"
 )
 
 func genDocs(path string, cfg doc.Config, isDir bool) {
@@ -34,7 +35,7 @@ func genDocs(path string, cfg doc.Config, isDir bool) {
 	}
 
 	for _, d := range list {
-		if strings.HasSuffix(d.Name(), ".mp") {
+		if strings.HasSuffix(d.Name(), ".vm") {
 			filename := filepath.Join(path, d.Name())
 			genDoc(filename, cfg)
 		}
@@ -49,7 +50,7 @@ func genDoc(filename string, cfg doc.Config) {
 	}
 	f, err := ioutil.ReadFile(wd + "/" + filename)
 	if err != nil {
-		fmt.Println("magpie: ", err.Error())
+		fmt.Println("vm: ", err.Error())
 		os.Exit(1)
 	}
 
@@ -69,7 +70,7 @@ func genDoc(filename string, cfg doc.Config) {
 	file := doc.New(filename, program)
 	md := doc.MdDocGen(file)
 
-	//remove the '.mp' extension
+	//remove the '.vm' extension
 	genFilename := strings.TrimSuffix(filename, filepath.Ext(filename))
 
 	//create markdown file
@@ -108,7 +109,7 @@ func genDoc(filename string, cfg doc.Config) {
 
 func main() {
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, "Usage: %s [magpie file]\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Usage: %s [vm file]\n", os.Args[0])
 		flag.PrintDefaults()
 		os.Exit(0)
 	}

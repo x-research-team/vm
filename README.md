@@ -1,28 +1,26 @@
 <p align="center">
-    <img alt="magpie language logo" src="https://github.com/haifenghuang/magpie/blob/master/magpie.png?raw=true" width="310">
+    <img alt="vm language logo" src="https://github.com/haifenghuang/vm/blob/master/vm.png?raw=true" width="310">
 </p>
 
-# Magpie Programming Language
-
-Chinese version: [中文](README_cn.md)
+# VM Programming Language
 
 ## Summary
 
-Magpie is a toy language interpreter, written in Go. It has C-style syntax, and is largely
+VM is a toy language interpreter, written in Go. It has C-style syntax, and is largely
 inspired by Ruby, Python, Perl and c#.
 
 It support the normal control flow, functional programming and object oriented programming.
 and also can import golang's module.
 
-It has a built-in documentation generator(mdoc) for generating html document from magpie source.
+It has a built-in documentation generator(mdoc) for generating html document from vm source.
 
 It has a simple debugger which you can experience with it.
 
 It also has a REPL with realtime syntax highlighter.
 
-I also made a simple programming language written using `magpie`.
+I also made a simple programming language written using `vm`.
 
-You can even run most of the `magpie` script in a web browser.
+You can even run most of the `vm` script in a web browser.
 
 ## Documention
 
@@ -160,7 +158,7 @@ service Hello on "0.0.0.0:8090:debug" { //':debug': for debugging request
 
 ## Getting started
 
-Below demonstrates some features of the Magpie language:
+Below demonstrates some features of the VM language:
 
 ### Basic
 
@@ -266,8 +264,8 @@ for i in a where i % 2 != 0 {
 
 # read line by line
 using (f = open("./file.log", "r")) {
-    for line in <$f> where line =~ ``magpie`` {
-        println(line) //print only lines which match 'magpie'
+    for line in <$f> where line =~ ``vm`` {
+        println(line) //print only lines which match 'vm'
     }
 }
 ```
@@ -431,7 +429,7 @@ println(dt4 <= dt5) //returns true
 
 ### Regular expression
 
-In magpie, regard to regular expression, you could use:
+In vm, regard to regular expression, you could use:
 
 * Regular expression literal
 * 'regexp' module
@@ -573,7 +571,7 @@ elif (RUNTIME_OS == "windows") {
 ```
 
 ### async/await processing
-Magpie support `async/await`.
+VM support `async/await`.
 
 ```csharp
 let add = async fn(a, b) { a + b }

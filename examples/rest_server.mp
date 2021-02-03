@@ -1,6 +1,6 @@
 /*
     Rest Service Example
-    For more advanced example, please see 'service.mp'
+    For more advanced example, please see 'service.vm'
 */
 
 let login = fn(writer, request) {

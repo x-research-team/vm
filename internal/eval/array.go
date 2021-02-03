@@ -5,10 +5,11 @@ import (
 	"encoding/json"
 	_ "errors"
 	"fmt"
-	"magpie/internal/ast"
 	"math"
 	"reflect"
 	"strings"
+
+	"github.com/x-research-team/vm/internal/ast"
 )
 
 type Array struct {

@@ -2,10 +2,11 @@ package eval
 
 import (
 	"fmt"
-	"magpie/internal/lexer"
-	"magpie/internal/parser"
 	"os"
 	"testing"
+
+	"github.com/x-research-team/vm/internal/lexer"
+	"github.com/x-research-team/vm/internal/parser"
 )
 
 func TestDoLoop(t *testing.T) {
@@ -57,13 +58,13 @@ func TestFileObjects(t *testing.T) {
 		input    string
 		expected interface{}
 	}{
-		{`let f = open("../parser/test_files/module.mp");str(f)`, "<file object: ../parser/test_files/module.mp>"},
-		{`let f = open("../parser/test_files/module.mp");f.read()`, `include eval
+		{`let f = open("../parser/test_files/module.vm");str(f)`, "<file object: ../parser/test_files/module.vm>"},
+		{`let f = open("../parser/test_files/module.vm");f.read()`, `include eval
 include test
 include sub_package`},
-		{`let f = open("../parser/test_files/module.mp");f.readline()`, "include eval"},
-		{`let f = open("../parser/test_files/module.mp");f.readline();f.readline()`, "include test"},
-		{`let f = open("../parser/test_files/module.mp");f.readline();f.readline();f.readline()`, "include sub_package"},
+		{`let f = open("../parser/test_files/module.vm");f.readline()`, "include eval"},
+		{`let f = open("../parser/test_files/module.vm");f.readline();f.readline()`, "include test"},
+		{`let f = open("../parser/test_files/module.vm");f.readline();f.readline();f.readline()`, "include sub_package"},
 	}
 	d, _ := os.Getwd()
 	fmt.Println(d)
@@ -672,7 +673,7 @@ if (10 > 1) {
 		{`"abc" / "abc"`, "unsupported operator for infix expression: '/' and types STRING and STRING"},
 		{`"abc" > "abc"`, "unsupported operator for infix expression: '>' and types STRING and STRING"},
 		{`"abc" < "abc"`, "unsupported operator for infix expression: '<' and types STRING and STRING"},
-		{`{"name":"Magpie"}[fn(x) {x}];`, "key error: type FUNCTION is not hashable"},
+		{`{"name":"VM"}[fn(x) {x}];`, "key error: type FUNCTION is not hashable"},
 	}
 
 	for _, tt := range tests {

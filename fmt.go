@@ -3,8 +3,9 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"magpie/internal/formatter"
 	"os"
+
+	"github.com/x-research-team/vm/internal/formatter"
 )
 
 func main() {

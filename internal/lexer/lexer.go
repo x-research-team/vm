@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"magpie/internal/token"
 	"strings"
 	"unicode"
 	"unicode/utf8"
+
+	"github.com/x-research-team/vm/internal/token"
 )
 
 const bom = 0xFEFF // byte order mark, only permitted as very first character
@@ -658,10 +659,10 @@ func (l *Lexer) readIdentifier() token.Token {
 		}
 	}
 
-	// Why '?' : Because Magpie support Optional, so it should be good for
+	// Why '?' : Because VM support Optional, so it should be good for
 	// a Optional type to denote it meaning with a '?' like 'isEmpty?'
 
-	// Why '$' : Because Magpie support extend built-in types with 'integer', 'float', etc.
+	// Why '$' : Because VM support extend built-in types with 'integer', 'float', etc.
 	// For example, you could extend 'integer' type with 'integer$funcname(xxx)'
 	for isLetter(l.ch) || isDigit(l.ch) || l.ch == '?' || l.ch == '$' {
 		if l.ch == '_' && !isLetter(l.peek()) {

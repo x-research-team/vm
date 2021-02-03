@@ -1,7 +1,7 @@
 package eval
 
 import (
-	"magpie/internal/ast"
+	"github.com/x-research-team/vm/internal/ast"
 )
 
 const (

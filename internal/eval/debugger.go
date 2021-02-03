@@ -3,13 +3,14 @@ package eval
 import (
 	"bufio"
 	"fmt"
-	"magpie/internal/ast"
-	"magpie/internal/lexer"
-	"magpie/internal/message"
-	"magpie/internal/parser"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/x-research-team/vm/internal/ast"
+	"github.com/x-research-team/vm/internal/lexer"
+	"github.com/x-research-team/vm/internal/message"
+	"github.com/x-research-team/vm/internal/parser"
 )
 
 const (
@@ -121,7 +122,7 @@ func (d *Debugger) ProcessCommand() {
 		}
 
 		fmt.Printf("\n%d\t\t%s", p.Line, d.SrcLines[p.Line])
-		fmt.Print("\n(magpie) ")
+		fmt.Print("\n(vm) ")
 
 		fmt.Print("\x1b[1m\x1b[36m")
 

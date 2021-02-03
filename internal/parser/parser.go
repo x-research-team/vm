@@ -4,14 +4,15 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
-	"magpie/internal/ast"
-	"magpie/internal/lexer"
-	"magpie/internal/token"
 	"os"
 	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/x-research-team/vm/internal/ast"
+	"github.com/x-research-team/vm/internal/lexer"
+	"github.com/x-research-team/vm/internal/token"
 )
 
 var numMap = map[rune]rune{
@@ -404,7 +405,7 @@ func (p *Parser) ParseProgram() *ast.Program {
 	program.Statements = []ast.Statement{}
 	program.Includes = make(map[string]*ast.IncludeStatement)
 
-	//if the magpie file only have ';', then we should return earlier.
+	//if the vm file only have ';', then we should return earlier.
 	if p.curTokenIs(token.SEMICOLON) && p.peekTokenIs(token.EOF) {
 		return program
 	}
@@ -1204,7 +1205,7 @@ func (p *Parser) parseBlockStatement() *ast.BlockStatement {
 	/*  LONG HIDDEN BUG!
 	NOTE: If we got 'EOF' and current token is not '}', then that means that the block is not ended with a '}', like below:
 
-		//if.mp
+		//if.vm
 	   if (10 > 2) {
 	       println("10>2")
 
@@ -1241,7 +1242,7 @@ func (p *Parser) parseAssignExpression(name ast.Expression) ast.Expression {
 	switch v := e.Value.(type) {
 	case *ast.InfixExpression:
 		/*
-		   e.g. In a '*.mp' file, you only have below line:
+		   e.g. In a '*.vm' file, you only have below line:
 		        c = 1 -
 		   and nothing more, then we assume it's a syntax error
 		*/
@@ -1295,18 +1296,18 @@ func (p *Parser) getIncludedStatements(importpath string) (*ast.Program, error) 
 		path = "."
 	}
 
-	fn := filepath.Join(path, importpath+".mp")
+	fn := filepath.Join(path, importpath+".vm")
 	f, err := ioutil.ReadFile(fn)
 	if err != nil { //error occurred, maybe the file do not exists.
 		// Check for 'MAGPIE_ROOT' environment variable
 		includeRoot := os.Getenv("MAGPIE_ROOT")
 		if len(includeRoot) == 0 { //'MAGPIE_ROOT' environment variable is not set
-			return nil, fmt.Errorf("Syntax Error:%v- no file or directory: %s.mp, %s", p.curToken.Pos, importpath, path)
+			return nil, fmt.Errorf("Syntax Error:%v- no file or directory: %s.vm, %s", p.curToken.Pos, importpath, path)
 		} else {
-			fn = filepath.Join(includeRoot, importpath+".mp")
+			fn = filepath.Join(includeRoot, importpath+".vm")
 			e, err := ioutil.ReadFile(fn)
 			if err != nil {
-				return nil, fmt.Errorf("Syntax Error:%v- no file or directory: %s.mp, %s", p.curToken.Pos, importpath, includeRoot)
+				return nil, fmt.Errorf("Syntax Error:%v- no file or directory: %s.vm, %s", p.curToken.Pos, importpath, includeRoot)
 			}
 			f = e
 		}

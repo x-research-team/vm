@@ -1,9 +1,9 @@
 {
     "name": "mp",
-    "displayName": "magpie",
-    "description": "Magpie language",
+    "displayName": "vm",
+    "description": "VM language",
     "version": "0.0.1",
-    "publisher": "magpie",
+    "publisher": "vm",
     "engines": {
         "vscode": "^1.17.0"
     },
@@ -12,15 +12,15 @@
     ],
     "contributes": {
         "languages": [{
-            "id": "magpie",
-            "aliases": ["magpie", "magpie"],
-            "extensions": [".mp"],
+            "id": "vm",
+            "aliases": ["vm", "vm"],
+            "extensions": [".vm"],
             "configuration": "./language-configuration.json"
         }],
         "grammars": [{
-            "language": "magpie",
-            "scopeName": "source.mp",
-            "path": "./syntaxes/magpie.tmLanguage"
+            "language": "vm",
+            "scopeName": "source.vm",
+            "path": "./syntaxes/vm.tmLanguage"
         }]
     }
 }

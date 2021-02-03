@@ -4,9 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"magpie/internal/ast"
 	"reflect"
 	"strings"
+
+	"github.com/x-research-team/vm/internal/ast"
 )
 
 /*

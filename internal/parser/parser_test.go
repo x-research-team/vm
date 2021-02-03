@@ -2,11 +2,12 @@ package parser
 
 import (
 	"fmt"
-	"magpie/internal/ast"
-	"magpie/internal/lexer"
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/x-research-team/vm/internal/ast"
+	"github.com/x-research-team/vm/internal/lexer"
 )
 
 var path, _ = os.Getwd()

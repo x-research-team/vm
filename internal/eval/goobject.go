@@ -212,7 +212,7 @@ func (gfn *GoFuncObject) CallMethod(line string, scope *Scope, method string, ar
 	var results []Object
 	//Call the function
 	outVals := reflect.ValueOf(gfn.fn).Call(inArgs)
-	// Convert the result back to magpie Object
+	// Convert the result back to vm Object
 	for _, val := range outVals {
 		// Here we only retuns GoObject, See comment of 'RegisterVars'.
 		results = append(results, NewGoObject(val.Interface()))
@@ -246,7 +246,7 @@ func NewGoFuncObject(fname string, fn interface{}) *GoFuncObject {
 	return gf
 }
 
-// Magpie language Object to go language Value.
+// VM language Object to go language Value.
 func ObjectToValue(obj Object, typ reflect.Type) reflect.Value {
 	var v reflect.Value
 	switch obj := obj.(type) {
@@ -285,7 +285,7 @@ func ObjectToValue(obj Object, typ reflect.Type) reflect.Value {
 	return v
 }
 
-// Go language Value to magpie language Object(take care of slice object value)
+// Go language Value to vm language Object(take care of slice object value)
 func GoValueToObject(obj interface{}) Object {
 	val := reflect.ValueOf(obj)
 	kind := val.Kind()

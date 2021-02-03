@@ -1,4 +1,4 @@
-# File `doc.mp`
+# File `doc.vm`
 Table of Contents
 =================
 

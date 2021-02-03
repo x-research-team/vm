@@ -1,6 +1,6 @@
 # Syntax Support for vim
 
-This file provides Syntax highlighting support for the magpie Language in vim
+This file provides Syntax highlighting support for the vm Language in vim
 
 ## screenshot
 

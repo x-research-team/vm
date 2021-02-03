@@ -5,149 +5,149 @@ endif
 
 syn case match
 
-syn keyword     magpieDirective         include
-syn keyword     magpieDeclaration       let const
+syn keyword     vmDirective         include
+syn keyword     vmDeclaration       let const
 
 
-hi def link     magpieDirective         Statement
-hi def link     magpieDeclaration       Type
+hi def link     vmDirective         Statement
+hi def link     vmDeclaration       Type
 
 " Linq Keywords
-syn keyword     magpieLinq              from where select group into orderby join in on equals by ascending descending
+syn keyword     vmLinq              from where select group into orderby join in on equals by ascending descending
 
-syn keyword     magpieStatement         return let const spawn defer struct enum using async await service
-syn keyword     magpieException         try catch finally throw
-syn keyword     magpieConditional       if else elif unless and or case is
-syn keyword     magpieRepeat            do while for break continue grep map
-syn keyword     magpieBranch            break continue
-syn keyword     magpieClass             class new property get set default this parent static public private protected interface
+syn keyword     vmStatement         return let const spawn defer struct enum using async await service
+syn keyword     vmException         try catch finally throw
+syn keyword     vmConditional       if else elif unless and or case is
+syn keyword     vmRepeat            do while for break continue grep map
+syn keyword     vmBranch            break continue
+syn keyword     vmClass             class new property get set default this parent static public private protected interface
 
-hi def link     magpieStatement         Statement
-hi def link     magpieClass             Statement
-hi def link     magpieConditional       Conditional
-hi def link     magpieBranch            Conditional
-hi def link     magpieLabel             Label
-hi def link     magpieRepeat            Repeat
-hi def link     magpieLinq              Keyword
+hi def link     vmStatement         Statement
+hi def link     vmClass             Statement
+hi def link     vmConditional       Conditional
+hi def link     vmBranch            Conditional
+hi def link     vmLabel             Label
+hi def link     vmRepeat            Repeat
+hi def link     vmLinq              Keyword
 
-syn match       magpieDeclaration       /\<fn\>/
-syn match       magpieDeclaration       /^fn\>/
-
-
-syn keyword magpieCommentTodo contained TODO FIXME XXX NOTE
-hi def link magpieCommentTodo Todo
-
-syn match comment "#.*$"    contains=@Spell,magpieCommentTodo
-syn match comment "\/\/.*$" contains=@Spell,magpieCommentTodo
-
-syn keyword     magpieCast              int str float array
+syn match       vmDeclaration       /\<fn\>/
+syn match       vmDeclaration       /^fn\>/
 
 
-hi def link     magpieCast              Type
+syn keyword vmCommentTodo contained TODO FIXME XXX NOTE
+hi def link vmCommentTodo Todo
+
+syn match comment "#.*$"    contains=@Spell,vmCommentTodo
+syn match comment "\/\/.*$" contains=@Spell,vmCommentTodo
+
+syn keyword     vmCast              int str float array
 
 
-syn keyword     magpieBuiltins          len
-syn keyword     magpieBuiltins          println print stdin stdout stderr
-syn keyword     magpieBoolean           true false
-syn keyword     magpieNull              nil
+hi def link     vmCast              Type
 
-hi def link     magpieBuiltins          Keyword
-hi def link     magpieNull              Keyword
-hi def link     magpieBoolean           Boolean
+
+syn keyword     vmBuiltins          len
+syn keyword     vmBuiltins          println print stdin stdout stderr
+syn keyword     vmBoolean           true false
+syn keyword     vmNull              nil
+
+hi def link     vmBuiltins          Keyword
+hi def link     vmNull              Keyword
+hi def link     vmBoolean           Boolean
 
 
 " Comments; their contents
-syn keyword     magpieTodo              contained TODO FIXME XXX BUG
-syn cluster     magpieCommentGroup      contains=magpieTodo
-syn region      magpieComment           start="#" end="$" contains=@magpieCommentGroup,@Spell,@magpieTodo
+syn keyword     vmTodo              contained TODO FIXME XXX BUG
+syn cluster     vmCommentGroup      contains=vmTodo
+syn region      vmComment           start="#" end="$" contains=@vmCommentGroup,@Spell,@vmTodo
 
 
-hi def link     magpieComment           Comment
-hi def link     magpieTodo              Todo
+hi def link     vmComment           Comment
+hi def link     vmTodo              Todo
 
 
-" magpie escapes
-syn match       magpieEscapeOctal       display contained "\\[0-7]\{3}"
-syn match       magpieEscapeC           display contained +\\[abfnrtv\\'"]+
-syn match       magpieEscapeX           display contained "\\x\x\{2}"
-syn match       magpieEscapeU           display contained "\\u\x\{4}"
-syn match       magpieEscapeBigU        display contained "\\U\x\{8}"
-syn match       magpieEscapeError       display contained +\\[^0-7xuUabfnrtv\\'"]+
+" vm escapes
+syn match       vmEscapeOctal       display contained "\\[0-7]\{3}"
+syn match       vmEscapeC           display contained +\\[abfnrtv\\'"]+
+syn match       vmEscapeX           display contained "\\x\x\{2}"
+syn match       vmEscapeU           display contained "\\u\x\{4}"
+syn match       vmEscapeBigU        display contained "\\U\x\{8}"
+syn match       vmEscapeError       display contained +\\[^0-7xuUabfnrtv\\'"]+
 
 
-hi def link     magpieEscapeOctal       magpieSpecialString
-hi def link     magpieEscapeC           magpieSpecialString
-hi def link     magpieEscapeX           magpieSpecialString
-hi def link     magpieEscapeU           magpieSpecialString
-hi def link     magpieEscapeBigU        magpieSpecialString
-hi def link     magpieSpecialString     Special
-hi def link     magpieEscapeError       Error
-hi def link     magpieException		Exception
+hi def link     vmEscapeOctal       vmSpecialString
+hi def link     vmEscapeC           vmSpecialString
+hi def link     vmEscapeX           vmSpecialString
+hi def link     vmEscapeU           vmSpecialString
+hi def link     vmEscapeBigU        vmSpecialString
+hi def link     vmSpecialString     Special
+hi def link     vmEscapeError       Error
+hi def link     vmException		Exception
 
 " Strings and their contents
-syn cluster     magpieStringGroup       contains=magpieEscapeOctal,magpieEscapeC,magpieEscapeX,magpieEscapeU,magpieEscapeBigU,magpieEscapeError
-syn region      magpieString            start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=@magpieStringGroup
-syn region      magpieRegExString       start=+/[^/*]+me=e-1 skip=+\\\\\|\\/+ end=+/\s*$+ end=+/\s*[;.,)\]}]+me=e-1 oneline
-syn region      magpieRawString         start=+`+ end=+`+
+syn cluster     vmStringGroup       contains=vmEscapeOctal,vmEscapeC,vmEscapeX,vmEscapeU,vmEscapeBigU,vmEscapeError
+syn region      vmString            start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=@vmStringGroup
+syn region      vmRegExString       start=+/[^/*]+me=e-1 skip=+\\\\\|\\/+ end=+/\s*$+ end=+/\s*[;.,)\]}]+me=e-1 oneline
+syn region      vmRawString         start=+`+ end=+`+
 
-hi def link     magpieString            String
-hi def link     magpieRawString         String
-hi def link     magpieRegExString       String
+hi def link     vmString            String
+hi def link     vmRawString         String
+hi def link     vmRegExString       String
 
 " Characters; their contents
-syn cluster     magpieCharacterGroup    contains=magpieEscapeOctal,magpieEscapeC,magpieEscapeX,magpieEscapeU,magpieEscapeBigU
-syn region      magpieCharacter         start=+'+ skip=+\\\\\|\\'+ end=+'+ contains=@magpieCharacterGroup
+syn cluster     vmCharacterGroup    contains=vmEscapeOctal,vmEscapeC,vmEscapeX,vmEscapeU,vmEscapeBigU
+syn region      vmCharacter         start=+'+ skip=+\\\\\|\\'+ end=+'+ contains=@vmCharacterGroup
 
 
-hi def link     magpieCharacter         Character
+hi def link     vmCharacter         Character
 
 
 " Regions
-syn region      magpieBlock             start="{" end="}" transparent fold
-syn region      magpieParen             start='(' end=')' transparent
+syn region      vmBlock             start="{" end="}" transparent fold
+syn region      vmParen             start='(' end=')' transparent
 
 
 " Integers
-syn match       magpieDecimalInt        "\<\d\+\([Ee]\d\+\)\?\>"
-syn match       magpieHexadecimalInt    "\<0x\x\+\>"
-syn match       magpieOctalInt          "\<0\o\+\>"
-syn match       magpieOctalError        "\<0\o*[89]\d*\>"
+syn match       vmDecimalInt        "\<\d\+\([Ee]\d\+\)\?\>"
+syn match       vmHexadecimalInt    "\<0x\x\+\>"
+syn match       vmOctalInt          "\<0\o\+\>"
+syn match       vmOctalError        "\<0\o*[89]\d*\>"
 
 
-hi def link     magpieDecimalInt        Integer
-hi def link     magpieHexadecimalInt    Integer
-hi def link     magpieOctalInt          Integer
+hi def link     vmDecimalInt        Integer
+hi def link     vmHexadecimalInt    Integer
+hi def link     vmOctalInt          Integer
 hi def link     Integer                 Number
 
 " Floating point
-syn match       magpieFloat             "\<\d\+\.\d*\([Ee][-+]\d\+\)\?\>"
-syn match       magpieFloat             "\<\.\d\+\([Ee][-+]\d\+\)\?\>"
-syn match       magpieFloat             "\<\d\+[Ee][-+]\d\+\>"
+syn match       vmFloat             "\<\d\+\.\d*\([Ee][-+]\d\+\)\?\>"
+syn match       vmFloat             "\<\.\d\+\([Ee][-+]\d\+\)\?\>"
+syn match       vmFloat             "\<\d\+[Ee][-+]\d\+\>"
 
 
-hi def link     magpieFloat             Float
-"hi def link     magpieImaginary         Number
+hi def link     vmFloat             Float
+"hi def link     vmImaginary         Number
 
 
-if exists("magpie_fold")
-    syn match	magpieFunction	"\<fn\>"
-    syn region	magpieFunctionFold	start="\<fn\>.*[^};]$" end="^\z1}.*$" transparent fold keepend
+if exists("vm_fold")
+    syn match	vmFunction	"\<fn\>"
+    syn region	vmFunctionFold	start="\<fn\>.*[^};]$" end="^\z1}.*$" transparent fold keepend
 
-    syn sync match magpieSync	grouphere magpieFunctionFold "\<fn\>"
-    syn sync match magpieSync	grouphere NONE "^}"
+    syn sync match vmSync	grouphere vmFunctionFold "\<fn\>"
+    syn sync match vmSync	grouphere NONE "^}"
 
     setlocal foldmethod=syntax
     setlocal foldtext=getline(v:foldstart)
 else
-    syn keyword magpieFunction	fn
-    syn match	magpieBraces	"[{}\[\]]"
-    syn match	magpieParens	"[()]"
+    syn keyword vmFunction	fn
+    syn match	vmBraces	"[{}\[\]]"
+    syn match	vmParens	"[()]"
 endif
 
 syn sync fromstart
 syn sync maxlines=100
 
-hi def link magpieFunction		Function
-hi def link magpieBraces		Function
+hi def link vmFunction		Function
+hi def link vmBraces		Function
 
-let b:current_syntax = "magpie"
+let b:current_syntax = "vm"

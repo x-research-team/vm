@@ -1,4 +1,4 @@
-// Package doc extracts source code documentation from a Magpie AST.
+// Package doc extracts source code documentation from a VM AST.
 package doc
 
 import (
@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"magpie/internal/ast"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -16,6 +15,8 @@ import (
 	"strings"
 	"text/template"
 	"unicode"
+
+	"github.com/x-research-team/vm/internal/ast"
 )
 
 var (
@@ -44,7 +45,7 @@ type Config struct {
 	CssContents    string //User supplied css file contents for styling generated html file
 }
 
-// File is the documentation for an entire magpie file.
+// File is the documentation for an entire vm file.
 type File struct {
 	Name    string //FileName
 	Classes []*Classes

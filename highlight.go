@@ -3,8 +3,9 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"magpie/internal/highlight"
 	"os"
+
+	"github.com/x-research-team/vm/internal/highlight"
 )
 
 func main() {

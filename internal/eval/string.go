@@ -6,10 +6,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"hash/fnv"
-	"magpie/internal/ast"
 	"strconv"
 	"strings"
 	"unicode"
+
+	"github.com/x-research-team/vm/internal/ast"
 )
 
 type InterpolatedString struct {

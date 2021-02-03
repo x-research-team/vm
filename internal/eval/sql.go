@@ -4,8 +4,9 @@ import (
 	"database/sql"
 	_ "fmt"
 
-	//	_ "github.com/mattn/go-sqlite3"
 	_ "reflect"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 const (

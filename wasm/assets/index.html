@@ -1,12 +1,12 @@
 <html>  
     <head>
-        <title>Magpie playground</title>
+        <title>VM playground</title>
         <meta charset="utf-8"/>
         <script src="wasm_exec.js"></script>
 
         <script>
             const go = new Go();
-            WebAssembly.instantiateStreaming(fetch("magpie.wasm"), go.importObject).then((result) => {
+            WebAssembly.instantiateStreaming(fetch("vm.wasm"), go.importObject).then((result) => {
                 go.run(result.instance);
             });
         </script>
@@ -18,7 +18,7 @@
                 width: 100%;
                 height: 350px;
             }
-            .magpie-error {
+            .vm-error {
                 position:absolute;
                 background:rgba(100,200,100,0.5);
                 z-index:20
@@ -1103,7 +1103,7 @@ Examples:
 
             //evaluate code
             let code = editor.getValue();
-            let { errlines, output } = magpie_run_code(code)
+            let { errlines, output } = vm_run_code(code)
 
             let parser_err_annotations = [];
             //check for parser error, and mark line if has error
@@ -1112,7 +1112,7 @@ Examples:
                 let errlinesArr = errlines.split("|")
                 for (let i = 0; i < errlinesArr.length; i++) {
                     let errline = errlinesArr[i]
-                    editor.session.addMarker(new Range(errline - 1, 0, errline - 1, 2000), "magpie-error", "fullLine");
+                    editor.session.addMarker(new Range(errline - 1, 0, errline - 1, 2000), "vm-error", "fullLine");
                     parser_err_annotations.push({ row: errline - 1, text: output, type: "error"})
                 }
 
@@ -1128,7 +1128,7 @@ Examples:
             while (match = reg.exec(output)) {
                 matched = true;
                 let line = parseInt(match[1]);
-                editor.session.addMarker(new Range(line - 1, 0, line - 1, 2000), "magpie-error", "fullLine");
+                editor.session.addMarker(new Range(line - 1, 0, line - 1, 2000), "vm-error", "fullLine");
                 runtime_err_annotations.push({ row: line - 1, text: match[0], type: "error"});
             }
             if (matched) {

@@ -1,1 +1,1 @@
-au BufNewFile,BufRead *.mp setlocal filetype=magpie
+au BufNewFile,BufRead *.vm setlocal filetype=vm

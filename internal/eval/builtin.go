@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"magpie/internal/ast"
 	"net"
 	"os"
 	"reflect"
@@ -16,6 +15,8 @@ import (
 	"sync"
 	"time"
 	"unicode/utf8"
+
+	"github.com/x-research-team/vm/internal/ast"
 )
 
 var fileModeTable = map[string]int{
@@ -800,7 +801,7 @@ func sscanfBuiltin() *Builtin {
 				return NewNil(err.Error())
 			}
 
-			//convert go's interface{} back to magpie's Object
+			//convert go's interface{} back to vm's Object
 			for i, _ := range subArgs {
 				subArgs[i], _ = unmarshalJsonObject(values[i])
 			}

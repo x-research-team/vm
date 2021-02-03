@@ -7,7 +7,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"magpie/internal/ast"
 	"math"
 	"os"
 	"reflect"
@@ -16,6 +15,8 @@ import (
 	"strconv"
 	"strings"
 	"unicode/utf8"
+
+	"github.com/x-research-team/vm/internal/ast"
 )
 
 var formatMap = map[int]string{

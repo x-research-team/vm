@@ -4,8 +4,9 @@ import (
 	"bytes"
 	"encoding/json"
 	html "html/template"
-	"magpie/internal/ast"
 	text "text/template"
+
+	"github.com/x-research-team/vm/internal/ast"
 )
 
 const (
@@ -709,14 +710,14 @@ func (t *TemplateObj) Funcs(line string, scope *Scope, args ...Object) Object {
 			s := NewScope(scope, nil)
 			//put all the arguments into scope for later 'Eval'
 			for idx, arg := range args {
-				o, _ := unmarshalJsonObject(arg) //convert go object to magpie object
+				o, _ := unmarshalJsonObject(arg) //convert go object to vm object
 				s.Set(innerFn.Literal.Parameters[idx].(*ast.Identifier).Value, o)
 			}
 			ret := Eval(innerFn.Literal.Body, s)
 			if obj, ok := ret.(*ReturnValue); ok {
 				ret = obj.Value
 			}
-			return object2RawValue(ret) //convert magpie object back to go object
+			return object2RawValue(ret) //convert vm object back to go object
 		}
 	}
 
