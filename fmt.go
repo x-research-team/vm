@@ -1,16 +1,14 @@
-package vm
+package main
 
 import (
+	"fmt"
 	"io/ioutil"
-	"log"
+	"magpie/internal/formatter"
 	"os"
-
-	"github.com/x-research-team/vm/formatter"
 )
 
-func _main_fmt() {
+func main() {
 	args := os.Args[1:]
-
 	var f []byte
 	var err error
 	if len(args) == 0 {
@@ -18,11 +16,9 @@ func _main_fmt() {
 	} else {
 		f, err = ioutil.ReadFile(args[0])
 		if err != nil {
-			log.Printf("[VM] Formatter: cannot read file; %v\n", err.Error())
-			return
+			fmt.Println("Formatter: cannot read file", err.Error())
+			os.Exit(1)
 		}
 	}
-
-	formatter := formatter.New(string(f))
-	formatter.Format()
+	formatter.New(string(f)).Format()
 }

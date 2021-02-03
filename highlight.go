@@ -1,15 +1,13 @@
-package vm
+package main
 
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
+	"magpie/internal/highlight"
 	"os"
-
-	"github.com/x-research-team/vm/highlight"
 )
 
-func _main_highlight() {
+func main() {
 	args := os.Args[1:]
 
 	var outFileName string = "output.html"
@@ -21,8 +19,8 @@ func _main_highlight() {
 	} else {
 		f, err = ioutil.ReadFile(args[0])
 		if err != nil {
-			log.Printf("[VM] Highlighter: cannot read file; %v\n", err.Error())
-			return
+			fmt.Println("Highlighter: cannot read file", err.Error())
+			os.Exit(1)
 		}
 		outFileName = fmt.Sprintf("%s.html", args[0])
 	}

@@ -1,27 +1,43 @@
-#!/bin/sh
+#!/usr/bin/env bash
 export GOPATH=$(pwd)
 
 # format each go file
 #echo "Formatting go file..."
-#for file in `find ./src/kernel -name "*.go"`; do
+#for file in `find ./src/magpie -name "*.go"`; do
 #	echo "    `basename $file`"
 #	go fmt $file > /dev/null
 #done
 
-echo ""
+interpreter_name=magpie
 
-# run: ./kernel demo.ks or ./kernel
-echo "Building REPL...(kernel)"
-go build -o kernel main.go
+# cross-compiling
+platforms=("windows/amd64" "linux/amd64" "darwin/amd64")
+for platform in "${platforms[@]}"
+do
+    platform_split=(${platform//\// })
+    GOOS=${platform_split[0]}
+    GOARCH=${platform_split[1]}
+    output_name=$interpreter_name'-'$GOOS'-'$GOARCH
+    if [ $GOOS = "windows" ]; then
+        output_name+='.exe'
+    fi
 
-echo "Building mdoc...(mdoc)"
-go build -o mdoc mdoc.go
+    echo "Building ${interpreter_name}...       ($output_name)"
+    env GOOS=$GOOS GOARCH=$GOARCH go build -ldflags "-s -w" -o $output_name main.go
+    if [ $? -ne 0 ]; then
+        echo 'An error has occurred! Aborting the script execution...'
+        exit 1
+    fi
+done
 
-# run: ./fmt demo.ks
-echo "Building Formatter...(fmt)"
-go build -o fmt fmt.go
+echo "Building mdoc...         (mdoc)"
+go build -ldflags "-s -w" -o mdoc mdoc.go
 
-# run:    ./highlight demo.ks               (generate: demo.ks.html)
-#     or  ./fmt demo.ks | ./highlight   (generate: output.html)
-echo "Building Highlighter...(highlight)"
-go build -o highlight highlight.go
+# run: ./fmt demo.mp
+echo "Building Formatter...    (fmt)"
+go build -ldflags "-s -w" -o fmt fmt.go
+
+# run:    ./highlight demo.mp               (generate: demo.mp.html)
+#     or  ./fmt demo.mp | ./highlight   (generate: output.html)
+echo "Building Highlighter...  (highlight)"
+go build -ldflags "-s -w" -o highlight highlight.go

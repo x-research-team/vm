@@ -1,0 +1,26 @@
+{
+    "name": "mp",
+    "displayName": "magpie",
+    "description": "Magpie language",
+    "version": "0.0.1",
+    "publisher": "magpie",
+    "engines": {
+        "vscode": "^1.17.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "magpie",
+            "aliases": ["magpie", "magpie"],
+            "extensions": [".mp"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "magpie",
+            "scopeName": "source.mp",
+            "path": "./syntaxes/magpie.tmLanguage"
+        }]
+    }
+}

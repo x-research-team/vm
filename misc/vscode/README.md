@@ -1,6 +1,6 @@
 # Syntax Support for VS Code(vsc)
 
-This file provides Syntax highlighting support for the kernel Language in `Vs Code`
+This file provides Syntax highlighting support for the magpie Language in `Vs Code`
 
 ## VS Code screenshot
 
@@ -9,8 +9,8 @@ This file provides Syntax highlighting support for the kernel Language in `Vs Co
 
 ## Installation for vsc
 
-Just copy `ks` directory to vsc's extension directory.
-e.g. in my computer, it's `${HOME}\.vscode\extensions`
+Just copy `mp` directory to vsc's extension directory.
+e.g. in my computer, it's `C:\Users\huanghai\.vscode\extensions`
 
 ## Known Issues
 

@@ -1,28 +1,39 @@
-# Kernel Programming Language
+<p align="center">
+    <img alt="magpie language logo" src="https://github.com/haifenghuang/magpie/blob/master/magpie.png?raw=true" width="310">
+</p>
+
+# Magpie Programming Language
+
+Chinese version: [中文](README_cn.md)
 
 ## Summary
 
-Kernel is a language interpreter, written in Go. It has C-style syntax, and is largely
+Magpie is a toy language interpreter, written in Go. It has C-style syntax, and is largely
 inspired by Ruby, Python, Perl and c#.
 
 It support the normal control flow, functional programming and object oriented programming.
 and also can import golang's module.
 
-It has a built-in documentation generator(mdoc) for generating html document from kernel source.
+It has a built-in documentation generator(mdoc) for generating html document from magpie source.
 
 It has a simple debugger which you can experience with it.
 
 It also has a REPL with realtime syntax highlighter.
 
+I also made a simple programming language written using `magpie`.
+
+You can even run most of the `magpie` script in a web browser.
+
 ## Documention
 
-Complete language tutorial can be found in [docs](github.com/x-research-team/vm/docs)
+Complete language tutorial can be found in [docs](docs)
 
 ## Features
 
 * Class with support for property, indexer & operator overloading
 * await/async for asynchronous programming
 * Builtin support for linq
+* Builtin support for datetime literal
 * First class function
 * function with Variadic parameters and default values
 * function with multiple return values
@@ -36,6 +47,7 @@ Complete language tutorial can be found in [docs](github.com/x-research-team/vm/
 * Doc-generation tool `mdoc`
 * Integrated services processing
 * Simple debugger
+* Simple Macro processing
 
 ## Example1(Linq)
 
@@ -148,7 +160,7 @@ service Hello on "0.0.0.0:8090:debug" { //':debug': for debugging request
 
 ## Getting started
 
-Below demonstrates some features of the Kernel language:
+Below demonstrates some features of the Magpie language:
 
 ### Basic
 
@@ -162,6 +174,7 @@ b = true               // bool
 a = [1, "2"]           // array
 h = {"a": 1, "b": 2}   // hash
 t = (1,2,3)            // tuple
+dt = dt/2018-01-01 12:01:00/  //datetime literal
 n = nil
 ```
 
@@ -170,6 +183,13 @@ n = nil
 ```csharp
 const PI = 3.14159
 PI = 3.14 //error
+
+const (
+    INT,    //default to 0
+    DOUBLE,
+    STRING
+)
+let i = INT
 ```
 
 ### Enum
@@ -205,7 +225,7 @@ let a, b = 10, 5
 if (a > b) {
     println("a > b")
 }
-elseif a == b {
+elif a == b {
     println("a = b")
 }
 else {
@@ -243,6 +263,13 @@ let a = [1,2,3,4]
 for i in a where i % 2 != 0 {
     println(i)
 }
+
+# read line by line
+using (f = open("./file.log", "r")) {
+    for line in <$f> where line =~ ``magpie`` {
+        println(line) //print only lines which match 'magpie'
+    }
+}
 ```
 
 #### while
@@ -252,6 +279,13 @@ i = 10
 while (i>3) {
     i--
     println('i={i}')
+}
+
+# read line by line
+using (f = open("./file.log", "r")) {
+    while <$f> {
+        println($_) //$_: line read from file
+    }
 }
 ```
 
@@ -341,9 +375,63 @@ for i in (1,2,3) {
 }
 ```
 
+### datetime literal
+
+```csharp
+let month = "01"
+let dt0 = dt/2018-{month}-01 12:01:00/
+println(dt0)
+
+let dt1 = dt/2018-01-01 12:01:00/.addDate(1, 2, 3).add(time.SECOND * 10) //add 1 year, two months, three days and 10 seconds
+printf("dt1 = %v\n", dt1)
+
+/* 'datetime literal' + string:
+     string support 'YMDhms' where
+       Y:Year    M:Month    D:Day
+       h:hour    m:minute   s:second
+
+*/
+//same result as 'dt1'
+let dt2 = dt/2018-01-01 12:01:00/ + "1Y2M3D10s" //add 1 year, two months, three days and 10 seconds
+printf("dt2 = %v\n", dt2)
+//same resutl as above
+//printf("dt2 = %s\n", dt2.toStr()) //use 'toStr()' method to convert datetime to string.
+
+let dt3 = dt/2019-01-01 12:01:00/
+//you could also use strftiem() to convert time object to string. below code converts time object to 'yyyy/mm/dd hh:mm:ss'
+format = dt3.strftime("%Y/%m/%d %T")
+println(dt3.toStr(format))
+
+////////////////////////////////
+// time object to timestamp
+////////////////////////////////
+println(dt3.unix()) //to timestamp(UTC)
+println(dt3.unixNano()) //to timestamp(UTC)
+println(dt3.unixLocal()) //to timestamp(LOCAL)
+println(dt3.unixLocalNano()) //to timestamp(LOCAL)
+
+////////////////////////////////
+// timestamp to time object
+////////////////////////////////
+timestampUTC = dt3.unix()      //to timestamp(UTC)
+println(unixTime(timestampUTC)) //timestamp to time
+
+timestampLocal = dt3.unixLocal() //to timestamp(LOCAL)
+println(unixTime(timestampLocal)) //timestamp to time
+
+////////////////////////////////
+// datetime comparation
+////////////////////////////////
+//two datetime literals could be compared using '>', '>=', '<', '<=' and '=='
+let dt4 = dt/2018-01-01 12:01:00/
+let dt5 = dt/2019-01-01 12:01:00/
+
+println(dt4 <= dt5) //returns true
+```
+
 ### Regular expression
 
-In kernel, regard to regular expression, you could use:
+In magpie, regard to regular expression, you could use:
 
 * Regular expression literal
 * 'regexp' module
@@ -405,6 +493,33 @@ a = array() // a = []
 t = tuple() // t = ()
 ```
 
+### Simple Macro Processing
+
+```csharp
+#define DEBUG
+
+// only support two below format:
+//    1. #ifdef xxx { body }
+//    2. #ifdef xxx { body } #else { body }, here only one '#else' is supported'.
+#ifdef DEBUG2
+{
+    add = fn(x, y) { x + y }
+    printf("add = %d\n", add(1, 2))
+}
+#else
+{
+    sub = fn(x, y) { x - y }
+    printf("sub = %d\n", sub(3, 1))
+}
+
+#define TESTING
+#ifdef TESTING
+{
+    add = fn(x, y) { x + y }
+    printf("add = %d\n", add(1, 2))
+}
+```
+
 ### Function
 
 * Default value
@@ -430,7 +545,7 @@ println(z(3,4)) //result :17
 fn testReturn(a, b, c, d=40) {
     return a, b, c, d
 }
-let (x, y, c, d) = testReturn(10, 20, 30) // d is nil
+let (x, y, c, d) = testReturn(10, 20, 30) // d is 40
 ```
 
 ### Command Execution
@@ -443,7 +558,7 @@ if (RUNTIME_OS == "linux") {
     out = `ls -la $var`
     println(out)
 }
-elseif (RUNTIME_OS == "windows") {
+elif (RUNTIME_OS == "windows") {
     out = `dir`
     println(out)
 
@@ -458,7 +573,7 @@ elseif (RUNTIME_OS == "windows") {
 ```
 
 ### async/await processing
-Kernel support `async/await`.
+Magpie support `async/await`.
 
 ```csharp
 let add = async fn(a, b) { a + b }
@@ -507,7 +622,7 @@ class Vector {
     fn +(v) { //overloading '+'
         if (type(v) == "INTEGER" {
             return new Vector(x + v, y + v);
-        } elseif v.is_a(Vector) {
+        } elif v.is_a(Vector) {
             return new Vector(x + v.x, y + v.y);
         }
         return nil;
@@ -792,6 +907,9 @@ Contributing is very welcomed. If you make any changes to the language, please l
 so i could put you in the `Credits` sections.
 
 ## Credits
+
+* mayoms:
+    This project is based on mayoms's [monkey](https://github.com/mayoms/monkey) interpreter.
 
 * ahmetb：
     Linq module is base on ahmetb's [linq](https://github.com/ahmetb/go-linq)

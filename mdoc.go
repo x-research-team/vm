@@ -1,16 +1,16 @@
-package vm
+/* Documentor generator for magpie. */
+package main
 
 import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	doc "magpie/internal/docs"
+	"magpie/internal/lexer"
+	"magpie/internal/parser"
 	"os"
 	"path/filepath"
 	"strings"
-
-	doc "github.com/x-research-team/vm/docs"
-	"github.com/x-research-team/vm/lexer"
-	"github.com/x-research-team/vm/parser"
 )
 
 func genDocs(path string, cfg doc.Config, isDir bool) {
@@ -34,7 +34,7 @@ func genDocs(path string, cfg doc.Config, isDir bool) {
 	}
 
 	for _, d := range list {
-		if strings.HasSuffix(d.Name(), ".ks") {
+		if strings.HasSuffix(d.Name(), ".mp") {
 			filename := filepath.Join(path, d.Name())
 			genDoc(filename, cfg)
 		}
@@ -49,7 +49,7 @@ func genDoc(filename string, cfg doc.Config) {
 	}
 	f, err := ioutil.ReadFile(wd + "/" + filename)
 	if err != nil {
-		fmt.Println("kernel: ", err.Error())
+		fmt.Println("magpie: ", err.Error())
 		os.Exit(1)
 	}
 
@@ -69,7 +69,7 @@ func genDoc(filename string, cfg doc.Config) {
 	file := doc.New(filename, program)
 	md := doc.MdDocGen(file)
 
-	//remove the '.ks' extension
+	//remove the '.mp' extension
 	genFilename := strings.TrimSuffix(filename, filepath.Ext(filename))
 
 	//create markdown file
@@ -106,9 +106,9 @@ func genDoc(filename string, cfg doc.Config) {
 	}
 }
 
-func _main_mdoc() {
+func main() {
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, "Usage: %s [kernel file]\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Usage: %s [magpie file]\n", os.Args[0])
 		flag.PrintDefaults()
 		os.Exit(0)
 	}

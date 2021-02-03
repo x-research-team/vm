@@ -1,0 +1,246 @@
+println()
+println("----Testing 'let' statement----")
+let five = 5
+let ten = 10
+println("five = ", five)
+println("ten = ", ten)
+println("10 * 2 = ", 10 << 1)
+println("10 / 2 = ", 10 >> 1)
+
+let a, b = 12, 10
+println("a = ", a, ", b = ", b)
+c, _, d = "hello", 10, "world"
+println("c = ", c, ", d = ", d)
+
+let f1, f2 = 12.5, 3.789
+println("f1 = ", f1, ", f2 = ", f2)
+println(a, " + ", f2, " = ", a + f2)
+
+let f3 = 3 ** 2 ** 3
+println("3 ** 2 ** 3 = ", f3)
+
+
+# This is a comment
+println()
+println("----Testing integer object and integer method----")
+
+println("six = ", five.next())
+println("nine = ", ten.prev())
+
+let fifteen = five + ten
+println("fifteen = ", fifteen)
+
+println()
+println("----Testing function literal----")
+let add = fn(x, y) {
+	x + y
+}
+let result = add(five, ten)
+println("add(", five, ",", ten, ") = ", result)
+println("5 * 3 = ", fn(x, y) { x * y}(5, 3))
+
+println()
+println("----Testing array object and array method----")
+let arr = [1, 2]
+arr[0] = 10
+println(arr)
+println("arr[1] = ", arr[1])
+println("arr[-1] = ", arr[-1])
+println("arr[-2] = ", arr[-2])
+
+arr.push(3)
+println("new arr = ", arr)
+println("new arr length = ", len(arr))
+arr.pop()
+println("new arr2 = ", arr)
+println("new arr2 length = ", len(arr))
+println("hello in [1, 2, hello] = ", "hello" in [1, 2, "hello"])
+
+println()
+println("----Testing tuple object----")
+let tup1 = (1, 2)
+
+# error: cannot assign to a tuple
+# tup1[0] = 10
+
+println(tup1)
+println("tup1[1] = ", tup1[1])
+println("tup1[-1] = ", tup1[-1])
+println("tup1[-2] = ", tup1[-2])
+
+let tup2 = (1,)
+println(tup2)
+println("tup2[0] = ", tup2[0])
+println("tup2[-1] = ", tup2[-1])
+println("hello in (1, 2, hello) = ", "hello" in (1, 2, "hello"))
+
+println()
+println("----Testing hash object and hash method----")
+let h = {"Name": "HHF", "Age": 43}
+println(h)
+println("h[Age] = ", h["Age"])
+println(h.keys())
+println(h.values())
+println(h.exists("Name"))
+
+h.push("Height", "164cm")
+for k, v in h {
+	println("key = ", k, ", value = ", v)
+}
+
+println(h)
+println(h.pop("Name"))
+println(h)
+
+let h2 = {"Name": "HHF", "Age": 43}
+println("Age2 in {Name: HHF, Age: 43} = ", "Age2" in h2) # false
+println("Age in {Name: HHF, Age: 43} = ", "Age" in h2)   # true
+
+println()
+println("----Testing string object and string method----")
+let strHello = "Hello World"
+println("strHello[4] = ", strHello[4], ", strHello[-2] = ", strHello[-2])
+println(strHello.lower())
+println(strHello.upper())
+strHello[5] = "-"
+println(strHello)
+
+
+println()
+println("----Testing 'while (condition) { block }'----")
+let i = 10
+println("i = ", i)
+while (i-- > 3) {
+	if (i == 7) { continue }
+	if (i == 5) { break }
+	println(i)
+}
+
+println()
+println("----Testing 'for { block }'----")
+let j = 10
+for {
+	j--
+	if (j == 7) { continue }
+	if (j == 5) { break }
+	println("j = ", j)
+}
+
+println()
+println("----Testing 'if (condition) { block }'----")
+let x = 3
+if (x >= 3 ) {
+	println("OK")
+} else {
+	println("NOT OK")
+}
+
+
+println()
+println("----Testing 'and' & 'or'----")
+let m = 10
+let n = 20
+if (m >= 10 and n <= 20) {
+	println("m >= 10 and n <= 20")
+}
+if (m < 10 or n >= 10) {
+	println("m < 10 and n >= 20")
+}
+if (m) {
+	println("m > 0")
+}
+
+
+println()
+println("--------Testing 'FunctionStatement'--------")
+fn sub(x, y) { x - y }
+println("5 - 3 = ", sub(5, 3))
+
+fn multi_ret_value(x, y) { return x, y }
+w0, w1, w2, w3 = "aaa", multi_ret_value(12, "Hello"), "world"
+println("w0 = ", w0, ", w1 = ", w1, ", w2 = ", w2, ", w3 = ", w3)
+
+println()
+println("----Testing 'for item in array'----")
+for item in [1, "hello", 3] {
+	println("idx = ", $_, ", item = ", item)
+}
+
+
+println()
+println("----Testing 'for item in string'----")
+for item in "hello" {
+	println("idx = ", $_, ", item = ", item)
+}
+
+
+println()
+println("----Testing 'const' statement----")
+const (
+	TOKEN_ILLEGAL,
+	TOKEN_EOF,
+	TOKEN_ASSIGN = 10,
+	TOKEN_PLUS,
+)
+println("TOKEN_ILLEGAL = ", TOKEN_ILLEGAL)
+println("TOKEN_EOF = ", TOKEN_EOF)
+println("TOKEN_ASSIGN = ", TOKEN_ASSIGN)
+println("TOKEN_PLUS = ", TOKEN_PLUS)
+
+# error: cannot modify a constant
+# TOKEN_EOF = 5
+
+println()
+println("----Testing 'file' object operation----")
+let ofile = open("demo.txt", "w")
+ofile.writeLine("AAAA")
+ofile.writeLine("BBBB")
+ofile.close()
+
+let ifile = open("demo.txt", "r")
+while ((l = ifile.readLine()) != nil) {
+	println(l)
+}
+ifile.close()
+
+
+println()
+println("----Testing 'stdin' & 'stdout' object operation----")
+#print("Please type your name: ")
+#name = stdin.read()  # read up to 1024 bytes from stdin
+#stdout.writeLine("Your name is " + name)
+
+stdout << "Hello" << " World" << endl
+
+
+#let input
+#stdin >> input
+#println("input = ", input)
+
+
+println()
+println("----Testing 'regular expression' operation----")
+if ("abc 123	mnj" =~ "\d+\t") {
+	println("MATCHED")
+}
+if ("abc xxx mnj" !~ "\d+") {
+	println("NOT MATCHED")
+}
+
+let regex = /aaa/
+let destStr = regex.replace("aaa bbb ccc aaa", "bbb")
+println("destStr = ", destStr)
+
+println()
+println("----Testing 'string' operation----")
+let str1 = "123 456 789 123"
+println("s6 = ", str1.replace("123", "aaa"))
+
+let iFound = str1.index("456")
+println("iFound = ", iFound)
+
+let subStr = str1.substr(4, 7)
+println("subStr = '", subStr + "'")
+
+println("x in 'abc' = ", "x" in "abc")
+println("a in 'abc' = ", "a" in "abc")
