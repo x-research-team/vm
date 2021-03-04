@@ -19,7 +19,10 @@ import (
 	"github.com/x-research-team/vm/internal/repl"
 )
 
+var Scope *eval.Scope
+
 func runProgram(debug bool, filename string) {
+	Scope = eval.NewScope(nil, os.Stdout)
 	wd, err := os.Getwd()
 	if err != nil {
 		fmt.Println(err.Error())
@@ -42,7 +45,6 @@ func runProgram(debug bool, filename string) {
 		}
 		os.Exit(1)
 	}
-	scope := eval.NewScope(nil, os.Stdout)
 	RegisterGoGlobals()
 
 	if debug {
@@ -68,7 +70,7 @@ func runProgram(debug bool, filename string) {
 
 	}
 
-	result := eval.Eval(program, scope)
+	result := eval.Eval(program, Scope)
 	if result.Type() == eval.ERROR_OBJ {
 		fmt.Println(result.Inspect())
 	}

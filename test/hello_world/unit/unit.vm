@@ -1,0 +1,19 @@
+class Unit {
+    let field
+
+    fn init(params) {
+        this.field = params.field
+    }
+
+    static fn new(params) {
+        return new Unit(params)
+    }
+
+    fn get_field() {
+        return this.field
+    }
+
+    fn set_field(v) {
+        this.field = v
+    }
+}

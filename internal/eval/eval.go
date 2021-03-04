@@ -13,7 +13,6 @@ import (
 	"strings"
 	"sync"
 	"time"
-	"unicode"
 	"unicode/utf8"
 
 	"github.com/x-research-team/vm/internal/ast"
@@ -316,9 +315,7 @@ func evalProgram(program *ast.Program, scope *Scope) (results Object) {
 }
 
 func loadIncludes(includes map[string]*ast.IncludeStatement, scope *Scope) {
-	if includeScope == nil {
-		includeScope = NewScope(nil, scope.Writer)
-	}
+	includeScope = NewScope(nil, nil)
 	for _, p := range includes {
 		Eval(p, scope)
 	}
@@ -326,38 +323,12 @@ func loadIncludes(includes map[string]*ast.IncludeStatement, scope *Scope) {
 
 // Statements...
 func evalIncludeStatement(i *ast.IncludeStatement, scope *Scope) Object {
+	imported := &IncludedObject{Name: i.IncludePath.String(), Scope: scope}
 
-	mux.Lock()
-	defer mux.Unlock()
-
-	// Check the cache
-	if cache, ok := importedCache[i.IncludePath.String()]; ok {
-		return cache
-	}
-
-	imported := &IncludedObject{Name: i.IncludePath.String(), Scope: NewScope(nil, scope.Writer)}
-
-	// capture stdout to suppress output during evaluating import
-	so := os.Stdout
-	_, w, _ := os.Pipe()
-	os.Stdout = w
 	if _, ok := includeScope.Get(i.IncludePath.String()); !ok {
 		evalProgram(i.Program, imported.Scope)
-		for k, _ := range imported.Scope.store {
-			// only uppercase letter is exported
-			if !unicode.IsUpper(rune(k[0])) {
-				delete(imported.Scope.store, k)
-			}
-		}
 		includeScope.Set(i.IncludePath.String(), imported)
 	}
-
-	// restore stdout
-	w.Close()
-	os.Stdout = so
-
-	//store the evaluated result to cache
-	importedCache[i.IncludePath.String()] = imported
 
 	return imported
 }
