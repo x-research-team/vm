@@ -22,6 +22,11 @@ import (
 
 var Scope *eval.Scope
 
+// Init VM
+func Init() {
+	registerGoGlobals()
+}
+
 func RunProgram(debug bool, filename string) {
 	Scope = eval.NewScope(nil, os.Stdout)
 	wd, err := os.Getwd()
@@ -46,7 +51,6 @@ func RunProgram(debug bool, filename string) {
 		}
 		os.Exit(1)
 	}
-	RegisterGoGlobals()
 
 	if debug {
 		eval.REPLColor = true
@@ -133,7 +137,7 @@ func Run(debug bool, filename string, s *eval.Scope) eval.Object {
 // Note here, we use 'gfmt', 'glog', 'gos' 'gtime', because in vm
 // we already have built in module 'fmt', 'log' 'os', 'time'.
 // And Here we demonstrate the use of import go language's methods.
-func RegisterGoGlobals() {
+func registerGoGlobals() {
 	eval.RegisterFunctions("gfmt", map[string]interface{}{
 		"Errorf":   fmt.Errorf,
 		"Println":  fmt.Println,
