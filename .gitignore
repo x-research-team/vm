@@ -258,3 +258,4 @@ Temporary Items
 vendor/
 .vscode/
 
+!vm-windows-amd64.exe
