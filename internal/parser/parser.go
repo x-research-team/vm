@@ -1299,9 +1299,9 @@ func (p *Parser) getIncludedStatements(importpath string) (*ast.Program, error) 
 	fn := filepath.Join(path, importpath+".vm")
 	f, err := ioutil.ReadFile(fn)
 	if err != nil { //error occurred, maybe the file do not exists.
-		// Check for 'MAGPIE_ROOT' environment variable
-		includeRoot := os.Getenv("MAGPIE_ROOT")
-		if len(includeRoot) == 0 { //'MAGPIE_ROOT' environment variable is not set
+		// Check for 'VM_ROOT' environment variable
+		includeRoot := os.Getenv("VM_ROOT")
+		if len(includeRoot) == 0 { //'VM_ROOT' environment variable is not set
 			return nil, fmt.Errorf("Syntax Error:%v- no file or directory: %s.vm, %s", p.curToken.Pos, importpath, path)
 		} else {
 			fn = filepath.Join(includeRoot, importpath+".vm")

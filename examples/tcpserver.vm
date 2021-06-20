@@ -7,7 +7,7 @@ for {
         printf("Accepted client, Address=%s\n", conn.addr())
     }
     spawn fn(conn) { //spawn a thread to handle the connection
-	println(conn.read())
+	    println(conn.read())
     }(conn)
 
 } //end for

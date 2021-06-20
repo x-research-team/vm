@@ -10,8 +10,10 @@ fn integer$to_slice_of(v) {
     return a
 }
 
-const a = unit.new({field: 10})
+const a = Unit.new({field: 10})
 println(a.field.to_str())
 a.set_field(30)
 println(a.get_field())
 println(a.field.to_slice_of(1).len())
+
+for i in a.field.to_slice_of(1) => print(i)
